@@ -3,10 +3,11 @@ import { SocialLinkMobileGroups } from '@/components/auth/SocialLinkMobileGroups
 
 import Text from '@/components/shared/Text'
 import { SignupForm } from '@/components/auth/SignupForm'
+import { Suspense } from 'react'
 
 export default function SignUpPage() {
   return (
-    <div className="flex w-dvw justify-center bg-background-gray">
+    <div className="flex w-full justify-center bg-background-gray">
       <section className="flex w-[690px] flex-col justify-center">
         <div className="mt-24">
           <h2 className="text-center text-[34px]">인플루언서 회원가입</h2>
@@ -27,7 +28,9 @@ export default function SignUpPage() {
           />
           <SocialLinkMobileGroups />
         </div>
-        <SignupForm />
+        <Suspense fallback={<>로딩중</>}>
+          <SignupForm />
+        </Suspense>
       </section>
     </div>
   )
