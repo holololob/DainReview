@@ -214,52 +214,31 @@ const page = () => {
                   <div className="mt-[8px] flex h-[90px] min-w-[328px] max-w-[335px] flex-1 items-center justify-around space-x-2 rounded-lg border px-[11px]">
                     <label className="flex flex-col items-center">
                       <span>일</span>
-                      <input
-                        type="checkbox"
-                        className="form-checkbox"
-                      />
+                      <input type="checkbox" />
                     </label>
                     <label className="flex flex-col items-center">
                       <span>월</span>
-                      <input
-                        type="checkbox"
-                        className="form-checkbox"
-                      />
+                      <input type="checkbox" />
                     </label>
                     <label className="flex flex-col items-center">
                       <span>화</span>
-                      <input
-                        type="checkbox"
-                        className="form-checkbox"
-                      />
+                      <input type="checkbox" />
                     </label>
                     <label className="flex flex-col items-center">
                       <span>수</span>
-                      <input
-                        type="checkbox"
-                        className="form-checkbox"
-                      />
+                      <input type="checkbox" />
                     </label>
                     <label className="flex flex-col items-center">
                       <span>목</span>
-                      <input
-                        type="checkbox"
-                        className="form-checkbox"
-                      />
+                      <input type="checkbox" />
                     </label>
                     <label className="flex flex-col items-center">
                       <span>금</span>
-                      <input
-                        type="checkbox"
-                        className="form-checkbox"
-                      />
+                      <input type="checkbox" />
                     </label>
                     <label className="flex flex-col items-center">
                       <span>토</span>
-                      <input
-                        type="checkbox"
-                        className="form-checkbox"
-                      />
+                      <input type="checkbox" />
                     </label>
                   </div>
                 </div>

@@ -8,8 +8,8 @@ import ImagePreviewer from '@/components/review/ImagePreviewer'
 import BlogIcon from '@/assets/icons/review/blog.svg'
 import PointIcon from '@/assets/icons/review/point.svg'
 
-const ExCampaignImage = '/review/ex_campaign.png'
-const ExampleImage = '/review/example.png'
+const ExCampaignImage = '/img/campaign.png'
+const ExampleImage = '/img/example.png'
 
 // 리뷰 등록: 인플루언서의 체험단 리뷰 등록 및 결과 보고 작성 페이지
 // 홈 - 마이페이지(인플루언서) - 리뷰 등록

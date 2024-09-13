@@ -23,13 +23,6 @@ const PageTitle: React.FC<PageHeaderProps> = ({
 
   return (
     <div>
-      {/* Small screens: Display title at the top center */}
-      {title && (
-        <div className="absolute left-0 right-0 top-[18px] z-10 mx-auto flex items-center justify-center lg:hidden">
-          <h2 className="text-body-1 font-[700] text-gray-90">{title}</h2>
-        </div>
-      )}
-
       {/* Larger screens: Display full header */}
       <div
         className={`hidden max-h-[240px] w-full bg-gradient-to-b from-[#040404] to-[#505156] lg:flex ${containerHeightClass}`}>

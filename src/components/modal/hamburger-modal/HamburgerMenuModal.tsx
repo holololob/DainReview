@@ -77,7 +77,11 @@ const HamburgerMenuModal = () => {
               </li>
             </ul>
           </div>
-          <div className="border-b border-line-neutral py-5">대행사 신청</div>
+          <Link
+            onClick={handleLinkClick}
+            href="/business/agency/apply">
+            <div className="border-b border-line-neutral py-5">대행사 신청</div>
+          </Link>
         </section>
         {isLogin && (
           <button className="text-b1 mb-[34px] mt-10 w-full px-4 text-center text-gray-40">
