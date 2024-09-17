@@ -127,15 +127,10 @@ const page = () => {
             <p className="mb-[8px] text-body-1 font-[700] text-gray-80">
               서비스 항목
             </p>
-            <textarea
-              placeholder="서비스 항목을 100자 이내로 입력해 주세요"
+            <TextareaCounter
               maxLength={100}
-              className="h-[167px] w-full rounded-[4px] border border-line-normal p-[9px] pl-[12px]"
-              required></textarea>
-            {/* 글자수 표시하는 함수 */}
-            <div className="flex justify-end">
-              <p className="text-caption-1 font-[300] text-gray-30"> 0 / 100</p>
-            </div>
+              placeholder="서비스 항목을 100자 이내로 입력해 주세요"
+            />
             <div className="flex justify-center">
               <button className="mb-[32px] mt-[80px] w-full max-w-[216px] rounded-[4px] border border-gray-80 bg-gray-0 px-[20px] py-[12px] text-body-1 font-[700] text-gray-80">
                 다음
@@ -273,8 +268,8 @@ const page = () => {
               요구 사항
             </p>
             <TextareaCounter
-              maxLength={100}
-              placeholder="서비스 항목을 100자 내외로 입력해 주세요"
+              maxLength={1000}
+              placeholder="요구 사항을 1000자 이내로 입력해 주세요"
             />
             <div className="flex justify-center">
               <button className="mb-[32px] mt-[80px] w-full max-w-[216px] rounded-[4px] border border-gray-80 bg-gray-0 px-[20px] py-[12px] text-body-1 font-[700] text-gray-80">
