@@ -74,8 +74,8 @@ const Footer = () => {
       </div>
       {/* 웹 푸터 */}
       <div className="hidden h-[286px] w-full bg-background-red lg:block">
-        <div className="px-4 text-base font-[400] text-gray-40">
-          <section className="mx-auto flex h-[208px] max-w-[1400px] flex-col gap-2 py-[48px]">
+        <div className="px-4 text-caption-1 text-gray-40">
+          <section className="mx-auto flex max-w-[1400px] flex-col gap-2 py-12">
             <div className="flex items-center gap-[6px] font-[700]">
               <p>{`(주)`} 다인기획</p>
               <div className="h-[10px] w-[2px] border bg-gray-10" />
@@ -93,8 +93,8 @@ const Footer = () => {
             </div>
             <p>통신판매업신고번호 : 제 2024-인천연수구-1408호</p>
           </section>
-          <div className="mx-auto w-[calc(100%-40px)] border px-5" />
-          <ul className="mx-auto flex h-[78px] max-w-[1400px] items-center gap-4 py-[28px]">
+          {/* <div className="mx-auto w-[calc(100%-40px)] border px-5" /> */}
+          <ul className="mx-auto mb-[53px] flex max-w-[1400px] items-center gap-4 border-t py-[28px]">
             <li>이용약관</li>
             <div className="h-[10px] w-[2px] border bg-gray-10" />
             <li>오픈 소스 라이센스</li>

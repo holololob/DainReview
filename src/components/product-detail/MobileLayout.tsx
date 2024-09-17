@@ -9,55 +9,53 @@ import DotIcon from '@/assets/icons/product-detail/dot.svg'
 import {
   experienceMessage,
   missionList,
-  staticData,
-  tagkeywordList,
-  요청사항,
   필수체크사항
 } from '@/data/DetailPageMockData'
-import ReviewType from '@/components/home/product/ReviewType'
 import { ProductDetailProps } from '@/models/detailPage'
 import Calendar from './Calendar'
 import KakaoMap from './KakaoMap'
+import { getDayInfo } from '@/utils/detailPageDays'
+import Schedule from './elements/Schedule'
+import PlatformType from '../home/product/PlatformType'
 
-const MobileLayout = ({ productId }: ProductDetailProps) => {
-  const initialApplicationStartDate = '2024-08-05T00:00:00Z' // API 값 예상해서 임시 사용
+const MobileLayout = ({ data }: { data: ProductDetailProps }) => {
+  const tagkeywordList = [data.keyword1, data.keyword2, data.keyword3]
+
+  const { availableDays, unavailableDays } = getDayInfo(data)
+  const daysData = [
+    {
+      label: '체험 가능 요일',
+      value: availableDays
+    },
+    {
+      label: '체험 가능 시간',
+      value: '오후 1시 ~ 오후 6시'
+    },
+    {
+      label: '체험 불가능 요일',
+      value: unavailableDays
+    }
+  ]
+
   return (
     <div className="px-4">
       <section className="flex flex-col">
         <div className="mt-5">
-          <ReviewType
-            labelType="기자단"
-            snsType="naver"
+          <PlatformType
+            type={data.type}
+            category={data.category}
             detailPage
+            platform={
+              data.platform as '블로그' | '유튜브' | '인스타그램' | '틱톡'
+            }
           />
         </div>
-        <h3 className="mt-2 text-heading-2 font-bold">
-          다인카페 체험단 모집합니다.
-        </h3>
-        <p className="mb-4 mt-3 text-gray-80">
-          음료 메뉴 2잔 + 디저트 메뉴 1종 (선택 가능) + 애견 동반 입장료
-          무료(매너벨트 1개 포함)
-        </p>
+        <h3 className="mt-2 text-heading-2 font-bold">{data.title}</h3>
+        <p className="mb-4 mt-3 text-gray-80">{data.service}</p>
         {/* 기간 */}
-        <div className="mt-4 flex min-h-[128px] flex-col gap-4 rounded-lg bg-gray-100 px-4 py-3">
-          <div className="flex justify-between">
-            <p>체험단 모집기간</p>
-            <p>08.05 (월) ~ 08.14 (수)</p>
-          </div>
-          <div className="flex justify-between">
-            <p>선정자 발표</p>
-            <p>08.05 (월) ~ 08.14 (수)</p>
-          </div>
-          <div className="flex justify-between">
-            <p>리뷰 & 체험</p>
-            <p>08.05 (월) ~ 08.14 (수)</p>
-          </div>
-          <div className="flex justify-between">
-            <p>리뷰 마감</p>
-            <p>08.05 (월) ~ 08.14 (수)</p>
-          </div>
-        </div>
-        <Calendar initialDate={initialApplicationStartDate} />
+        <Schedule data={data} />
+        {/* 달력 */}
+        <Calendar data={data} />
       </section>
       {/* 사업주 정보 */}
       <div className="mt-12">
@@ -104,7 +102,7 @@ const MobileLayout = ({ productId }: ProductDetailProps) => {
       <section className="mt-12">
         <p className="mb-4 text-heading-5 font-bold">방문 / 예약 안내</p>
         <ul className="flex flex-col gap-2">
-          {staticData.map((item, i) => (
+          {daysData.map((item, i) => (
             <li
               className="flex"
               key={i}>
@@ -161,20 +159,16 @@ const MobileLayout = ({ productId }: ProductDetailProps) => {
         </div>
       </section>
       <section className="mb-12 mt-12">
-        <p className="mb-4 text-heading-5 font-bold">사업주 요청 사항</p>
-        <ul className="flex flex-col gap-2">
-          {요청사항.map((info, i) => (
-            <CheckInfoList
-              key={i}
-              info={info}
-            />
-          ))}
-        </ul>
+        <p className="mb-4 text-heading-5 font-bold">사업주 요청사항</p>
+        <p>{data.mission}</p>
       </section>
 
       <footer className="mb-6 mt-32 flex items-center justify-between gap-2">
         <LikeButton />
-        <ButtonAndInfo productId={productId} />
+        <ButtonAndInfo
+          recruiter={data.recruiter}
+          productId={data.seq}
+        />
       </footer>
     </div>
   )

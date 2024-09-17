@@ -22,7 +22,6 @@ export const 필수체크사항 = [
 
 export const 요청사항 = ['30초 이상', '계정 태그', '소리 필수']
 
-export const tagkeywordList = ['강남카페', '분위기카페', '다인카페']
 export const missionList = [
   '🏷️ 태그',
   '📍 지도',

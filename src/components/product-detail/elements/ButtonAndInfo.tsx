@@ -1,17 +1,19 @@
 import Link from 'next/link'
 
 interface Props {
-  productId: string
+  productId?: number
   onClick?: () => void | undefined
   isApplyPage?: boolean
   desktopSize?: boolean
+  recruiter?: number
 }
 
 const ButtonAndInfo = ({
   productId,
   onClick,
   isApplyPage,
-  desktopSize
+  desktopSize,
+  recruiter
 }: Props) => {
   return (
     <div className="relative w-full">
@@ -48,9 +50,9 @@ const ButtonAndInfo = ({
             />
           </svg>
           <div className="text-center">
-            🔥 신청 <span className="font-bold text-red-main">30</span>
+            🔥 신청 <span className="font-bold text-red-main">0</span>
             {' / 모집 '}
-            <span className="font-bold text-red-main">3</span>
+            <span className="font-bold text-red-main">{recruiter}</span>
           </div>
         </div>
       </div>

@@ -1,34 +1,45 @@
 'use client'
 
 import useCalendar from '@/hooks/useCalendar'
+import { transformApiData } from '@/utils/detailPageDays'
 
-const Calendar = ({ initialDate }: any) => {
-  const { weekCalendarList, currentDate, handlePrevMonth, handlenextMonth } =
-    useCalendar(new Date(initialDate))
-
-  const mockApiData = {
-    applicationStartDate: '2024-08-05T00:00:00', // 모집 시작일
-    applicationEndDate: '2024-08-14T23:59:59', // 모집 종료일
-    experienceStartDate: '2024-08-16T00:00:00', // 체험 시작일
-    experienceEndDate: '2024-08-28T23:59:59' // 체험 종료일
+const Calendar = ({ data }: any) => {
+  if (!data || !data.applicationStartDate || !data.applicationEndDate) {
+    return <div>데이터를 불러오는 중입니다...</div>
   }
+
+  const transformedData = transformApiData(data)
+
+  const { weekCalendarList, currentDate, handlePrevMonth, handlenextMonth } =
+    useCalendar(new Date(transformedData.applicationStartDate))
 
   const events = {
     recruitmentPeriod: {
-      start: new Date(mockApiData.applicationStartDate),
-      end: new Date(mockApiData.applicationEndDate)
+      start: new Date(transformedData.applicationStartDate),
+      end: new Date(transformedData.applicationEndDate)
     }, // 모집 기간
     announcement: new Date(
-      new Date(mockApiData.applicationEndDate).getTime() + 86400000
+      new Date(transformedData.applicationParticipantsDate).getTime()
     ), // 모집 기간 다음날 - 결과 발표
     experiencePeriod: {
-      start: new Date(mockApiData.experienceStartDate),
-      end: new Date(mockApiData.experienceEndDate)
+      start: new Date(transformedData.experienceStartDate),
+      end: new Date(transformedData.experienceEndDate)
     }, // 체험 기간
-    deadline: new Date(
-      new Date(mockApiData.experienceEndDate).getTime() + 86400000
-    ) // 체험 종료 다음날 - 리뷰 마감
+    deadline: new Date(new Date(transformedData.reviewEndDate).getTime()) // 체험 종료 다음날 - 리뷰 마감
   }
+
+  // const events2 = {
+  //   recruitmentPeriod: {
+  //     start: new Date(transDate.applicationStartDate),
+  //     end: new Date(transDate.applicationEndDate)
+  //   }, // 모집 기간
+  //   announcement: new Date(new Date(transDate.applicationParticipantsDate)), // 모집 기간 다음날 - 결과 발표
+  //   experiencePeriod: {
+  //     start: new Date(transDate.experienceStartDate),
+  //     end: new Date(transDate.experienceEndDate)
+  //   }, // 체험 기간
+  //   deadline: new Date(new Date(transDate.reviewEndDate)) // 체험 종료 다음날 - 리뷰 마감
+  // }
 
   // 현재 달에 속하는지 확인하는 함수
   const isInCurrentMonth = (date: Date) => {
@@ -48,8 +59,11 @@ const Calendar = ({ initialDate }: any) => {
   }
 
   // 모집 기간 첫날인지 확인하는 함수
-  const isFirstDayOfEvent = (date: any, range: any) => {
-    return date.getTime() === range.start.getTime() && isInCurrentMonth(date)
+  const isFirstDayOfEvent = (date: Date, range: { start: Date; end: Date }) => {
+    return (
+      date.toDateString() === range.start.toDateString() &&
+      isInCurrentMonth(date)
+    )
   }
 
   const getEventStyleAndLabel = (dayDate: Date) => {

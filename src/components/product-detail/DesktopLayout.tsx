@@ -3,7 +3,6 @@ import {
   experienceMessage,
   missionList,
   staticData,
-  tagkeywordList,
   요청사항,
   필수체크사항
 } from '@/data/DetailPageMockData'
@@ -19,8 +18,32 @@ import Schedule from './elements/Schedule'
 import Calendar from './Calendar'
 import KakaoMap from './KakaoMap'
 import { notify } from '@/utils/toast'
+import PlatformType from '../home/product/PlatformType'
+import { getDayInfo } from '@/utils/detailPageDays'
 
-const DesktopLayout = ({ productId }: ProductDetailProps) => {
+interface Props {
+  data: ProductDetailProps
+}
+
+const DesktopLayout = ({ data }: Props) => {
+  const tagkeywordList = [data.keyword1, data.keyword2, data.keyword3]
+
+  const { availableDays, unavailableDays } = getDayInfo(data)
+  const daysData = [
+    {
+      label: '체험 가능 요일',
+      value: availableDays
+    },
+    {
+      label: '체험 가능 시간',
+      value: '오후 1시 ~ 오후 6시'
+    },
+    {
+      label: '체험 불가능 요일',
+      value: unavailableDays
+    }
+  ]
+
   const initialApplicationStartDate = '2024-08-05T00:00:00Z'
 
   const handleClick = () => {
@@ -34,16 +57,17 @@ const DesktopLayout = ({ productId }: ProductDetailProps) => {
         <div className="min-w-[503px] max-w-[899px] flex-1 px-4">
           <section className="flex flex-col">
             <div className="mt-10">
-              <ReviewType
-                labelType="기자단"
-                snsType="naver"
+              <PlatformType
+                type={data.type}
+                category={data.category}
                 detailPage
+                platform={
+                  data.platform as '블로그' | '유튜브' | '인스타그램' | '틱톡'
+                }
               />
             </div>
             <div className="flex justify-between border-b border-line-neutral pb-6">
-              <h3 className="mt-2 text-heading-2 font-bold">
-                다인카페 체험단 모집합니다.
-              </h3>
+              <h3 className="mt-2 text-heading-2 font-bold">{data.title}</h3>
               <div className="flex gap-6">
                 <DesttopShare />
                 <LikeButton deskTop />
@@ -52,10 +76,7 @@ const DesktopLayout = ({ productId }: ProductDetailProps) => {
 
             <div className="mt-[40px]">
               <p className="mb-6 text-heading-5 font-bold">제공 내역</p>
-              <p className="mb-4 mt-3 text-gray-80">
-                음료 메뉴 2잔 + 디저트 메뉴 1종 (선택 가능) + 애견 동반 입장료
-                무료(매너벨트 1개 포함)
-              </p>
+              <p className="mb-4 mt-3 text-gray-80">{data.service}</p>
             </div>
           </section>
           {/* 사업주 정보 */}
@@ -103,7 +124,7 @@ const DesktopLayout = ({ productId }: ProductDetailProps) => {
           <section className="mt-12">
             <p className="mb-4 text-heading-5 font-bold">방문 / 예약 안내</p>
             <ul className="flex flex-col gap-2">
-              {staticData.map((item, i) => (
+              {daysData.map((item, i) => (
                 <li
                   className="flex"
                   key={i}>
@@ -161,26 +182,28 @@ const DesktopLayout = ({ productId }: ProductDetailProps) => {
           </section>
           <section className="mb-12 mt-12">
             <p className="mb-4 text-heading-5 font-bold">사업주 요청 사항</p>
-            <ul className="flex flex-col gap-2">
+            <p>{data.mission}</p>
+            {/* <ul className="flex flex-col gap-2">
               {요청사항.map((info, i) => (
                 <CheckInfoList
                   key={i}
                   info={info}
                 />
               ))}
-            </ul>
+            </ul> */}
           </section>
         </div>
         {/* 오른쪽 레이아웃 */}
         <div className="mt-10 flex h-[892px] min-w-[461px] flex-col rounded-lg bg-[#F7F8F8] px-6 pb-8 pt-6">
           <p className="mb-2 text-heading-5 font-bold">체험단 일정</p>
-          <Schedule />
+          <Schedule data={data} />
           <div className="mt-4">
-            <Calendar initialDate={initialApplicationStartDate} />
+            <Calendar data={data} />
           </div>
           <div className="mt-auto">
             <ButtonAndInfo
-              productId={productId}
+              productId={data.seq}
+              recruiter={data.recruiter}
               desktopSize
             />
           </div>
