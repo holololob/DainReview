@@ -59,7 +59,7 @@ const page = () => {
 
             <InputField
               id="agency"
-              type="number"
+              type="text"
               name="사업자 등록번호"
               require={true}
               placeholder="‘-’ 없이 숫자만 작성"
