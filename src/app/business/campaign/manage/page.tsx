@@ -24,13 +24,15 @@ const page = () => {
         alignment="left"
       />
       <div className="m-auto flex w-full max-w-[1920px] flex-col bg-background-gray">
-        <section className="mb-[10px] flex w-full max-w-[1400px] flex-col bg-gray-0 p-[24px]">
-          <div className="flex space-x-[4px]">
+        {/* <section className="mb-[10px] flex w-full max-w-[1400px] flex-col bg-gray-0 p-[24px]"> */}
+        <section className="mb-[10px] flex w-full max-w-[1400px] flex-col space-y-2 bg-gray-0 p-[24px] md:flex-row md:space-x-4 md:space-y-0">
+          {/* <div className="flex space-x-[4px]"> */}
+          <div className="flex w-full space-x-2 md:w-1/2">
             <input
               type="text"
               name="keyword"
               placeholder="키워드를 입력해 주세요"
-              className="mb-[6px] h-[40px] w-full rounded-[4px] border border-line-normal pl-[12px]"
+              className="h-[40px] w-full rounded-[4px] border border-line-normal pl-[12px]"
             />
             <button
               type="button"
@@ -38,10 +40,11 @@ const page = () => {
               검색
             </button>
           </div>
-          <div className="flex w-full items-center justify-between space-x-2">
+          {/* <div className="flex w-full items-center justify-between space-x-2"> */}
+          <div className="flex w-full space-x-2 md:w-1/2">
             <select
               required
-              className="mt-2 w-full rounded-md border border-gray-300 p-2 text-gray-700">
+              className="h-[40px] w-full rounded-md border border-gray-300 p-2 text-gray-700">
               <option value="">플랫폼</option>
               <option value="naver blog">블로그</option>
               <option value="instagram">인스타그램</option>
@@ -53,7 +56,7 @@ const page = () => {
 
             <select
               required
-              className="mt-2 w-full rounded-md border border-gray-300 p-2 text-gray-700">
+              className="h-[40px] w-full rounded-md border border-gray-300 pl-2 text-gray-700">
               <option value="">선택</option>
               <option value="visit">방문형</option>
               <option value="takeout">포장형</option>
