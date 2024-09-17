@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useMediaQuery } from 'react-responsive'
 import CampaignCard from './CampaignCard'
 import MoreButton from '../home/product/MoreButton'
@@ -29,6 +30,7 @@ const CampaignCardContainer = () => {
           {displayedProducts.slice(0, visibleCards).map((_, i) => (
             <CampaignCard
               flag={null}
+              status={status}
               key={i}
             />
           ))}

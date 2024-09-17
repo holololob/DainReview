@@ -15,9 +15,8 @@ const page = () => {
   return (
     <main>
       <Header
-        isLogin={false}
+        isLogin={true}
         subtitle={'체험단 관리'}
-        isOnlyBackButton
       />
       <PageTitle
         title="체험단 관리"
