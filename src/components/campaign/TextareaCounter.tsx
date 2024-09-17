@@ -23,7 +23,7 @@ const TextareaCounter: React.FC<TextareaCounterProps> = ({
         value={text}
         onChange={handleTextChange}
         placeholder={placeholder}
-        className="h-[167px] w-full rounded-[4px] border border-line-normal p-[9px] pl-[12px]"
+        className="h-[167px] w-full resize-none rounded-[4px] border border-line-normal p-[9px] pl-[12px]"
       />
       <div className="flex justify-end text-caption-1 font-[300] text-gray-30">
         {text.length} / {maxLength}
