@@ -1,9 +1,19 @@
 import React, { useCallback, useState } from 'react'
-import { useFormContext } from 'react-hook-form'
-import Button from '../shared/Button'
-import { Label } from '../shared/Label'
-import VerificationIcon from './VerificationIcon'
+import {
+  UseFormRegister,
+  FieldValues,
+  FieldErrors,
+  UseFormSetValue,
+  UseFormWatch,
+  UseFormRegisterReturn
+} from 'react-hook-form'
+
 import classNames from 'classnames'
+import Button from '@/components/shared/Button'
+import { Label } from '@/components/shared/Label'
+import VerificationIcon from '../VerificationIcon'
+import { IFormInput } from '../form/ModifyMyForm'
+import { watch } from 'fs'
 
 interface CertifyFieldProps {
   id: string
@@ -16,6 +26,10 @@ interface CertifyFieldProps {
   validationFunction: (
     value: string
   ) => Promise<{ isValid: boolean | null; message: string }>
+  register: UseFormRegisterReturn
+  errors: any
+  setValue: any
+  watch: any
 }
 
 const CertifyField: React.FC<CertifyFieldProps> = ({
@@ -26,15 +40,13 @@ const CertifyField: React.FC<CertifyFieldProps> = ({
   description,
   children,
   showIcon,
-  validationFunction
+  validationFunction,
+  register,
+  errors,
+  setValue,
+  watch
 }) => {
-  const {
-    register,
-    formState: { errors },
-    setValue,
-    watch
-  } = useFormContext()
-  const [isVerifiedMessage, setisVerifiedMessage] = useState('')
+  const [isVerifiedMessage, setIsVerifiedMessage] = useState('')
   const [isVerified, setIsVerified] = useState<boolean | null>(null)
   const inputValue = watch(id) // 현재 입력된 값을 동기화
 
@@ -46,10 +58,10 @@ const CertifyField: React.FC<CertifyFieldProps> = ({
     setIsVerified(result.isValid)
     if (result.isValid === true) {
       setValue(id, inputValue, { shouldValidate: true })
-      setisVerifiedMessage(result.message)
+      setIsVerifiedMessage(result.message)
       return true // 유효한 경우 true 반환
     } else if (result.isValid === false) {
-      setisVerifiedMessage(result.message)
+      setIsVerifiedMessage(result.message)
       return result.message || '유효성 검사에 실패했습니다.' // 유효하지 않은 경우 오류 메시지 반환
     }
   }, [inputValue, validationFunction, setValue])
@@ -70,9 +82,7 @@ const CertifyField: React.FC<CertifyFieldProps> = ({
             )}
             id={id}
             type="text"
-            {...register(id, {
-              validate: handleValidation
-            })}
+            {...register}
             placeholder={placeholder}
           />
           {showIcon && <VerificationIcon isVerified={isVerified} />}

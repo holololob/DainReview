@@ -14,7 +14,7 @@ interface InputProps {
   icon?: ReactNode
 }
 
-const Input: React.FC<InputProps> = ({
+const SnsInput: React.FC<InputProps> = ({
   id,
   label,
   type,
@@ -22,15 +22,8 @@ const Input: React.FC<InputProps> = ({
   required,
   placeholder,
   className,
-  icon,
-  ...rest
+  icon
 }) => {
-  const {
-    register,
-    formState: { errors }
-  } = useFormContext()
-  const hasError = errors[id] ? errors[id] : null
-
   return (
     <div className="relative w-full">
       {icon ? (
@@ -43,19 +36,12 @@ const Input: React.FC<InputProps> = ({
         disabled={disabled}
         type={type}
         placeholder={placeholder}
-        {...register(id, { required: '내용을 입력해주세요' })}
-        {...rest}
         className={classNames(
-          `${className} ${icon ? 'px-10' : 'px-2'} box-border w-full rounded-[4px] border py-2 shadow-sm transition focus:border-black focus:outline-none focus:ring-1 focus:ring-black disabled:cursor-not-allowed disabled:opacity-70 ${hasError ? 'focus:border-red-500 focus:ring-red-500' : ''}`
+          `${className} ${icon ? 'px-10' : 'px-2'} box-border w-full rounded-[4px] border py-2 shadow-sm transition focus:border-black focus:outline-none focus:ring-1 focus:ring-black disabled:cursor-not-allowed disabled:opacity-70`
         )}
       />
-      {errors ? (
-        <p className="mt-2 text-sm text-red-main">
-          {errors[id]?.message?.toString()}
-        </p>
-      ) : null}
     </div>
   )
 }
 
-export default Input
+export default SnsInput

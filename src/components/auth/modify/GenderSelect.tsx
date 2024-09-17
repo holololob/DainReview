@@ -1,13 +1,16 @@
+import Button from '@/components/shared/Button'
+import { Label } from '@/components/shared/Label'
 import React, { useState } from 'react'
-import { Label } from '../shared/Label'
-import Button from '../shared/Button'
-import { useFormContext } from 'react-hook-form'
 
-const GenderSelect = ({ id }: { id: string }) => {
-  const {
-    setValue,
-    formState: { errors }
-  } = useFormContext()
+const GenderSelect = ({
+  id,
+  errors,
+  setValue
+}: {
+  id: string
+  errors: any
+  setValue: any
+}) => {
   const [selectedGender, setSelectedGender] = useState(null)
 
   const handleGenderSelect = (gender: any) => {
