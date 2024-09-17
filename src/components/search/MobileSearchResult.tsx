@@ -24,7 +24,7 @@ const MobileSearchResult = ({ keyword, data }: Props) => {
       </div>
       <section>
         <p className="mb-[6px] mt-10 text-caption-1 text-gray-80">
-          12개의 체험단
+          {data.length}개의 체험단
         </p>
         <div className="grid grid-cols-2 gap-x-4 gap-y-[10px]">
           {data.map((campaign: any) => (

@@ -80,10 +80,10 @@ const SearchClient = ({
       />
       {/* 모바일 검색 결과 - 추후 data를 props로 */}
       <div className="lg:hidden">
-          <MobileSearchResult
-            data={data}
-            keyword={keyword}
-          />
+        <MobileSearchResult
+          data={data}
+          keyword={keyword}
+        />
       </div>
       {/* 웹 검색 필터와 결과 */}
       <section className="mx-auto mb-28 hidden max-w-[1400px] px-4 lg:block">
@@ -132,7 +132,7 @@ const SearchClient = ({
         {/* 웹 검색 결과 */}
         <div className="mt-12 flex items-center justify-between">
           <div className="text-heading-4 text-gray-90">
-            <span className="text-red-main">20</span>
+            <span className="text-red-main">{data.length}</span>
             <span>개의 체험단</span>
           </div>
           <div className="flex gap-2">
@@ -145,7 +145,7 @@ const SearchClient = ({
             {data.map((campaign: CampaignProps) => (
               <SegmentProductCard
                 data={campaign}
-                key={data.seq}
+                key={campaign.seq}
               />
             ))}
           </div>

@@ -2,7 +2,7 @@ interface PlatformTypeProps {
   platform: '블로그' | '유튜브' | '인스타그램' | '틱톡' | '쇼츠'
   labelType?: '기자단' | '방문형' | '배송형' | '카테고리'
   detailPage?: boolean
-  type?: string
+  type?: string // 방문형 등
   category?: string
 }
 
@@ -411,11 +411,11 @@ const PlatformType = ({
   }
 
   return (
-    <div className="flex gap-[6px]">
+    <div className="flex items-center gap-[6px]">
       <div className="flex gap-[6px]">{icons[platform]}</div>
       {detailPage ? (
         <div className="text-body-2 text-gray-60">
-          {platform === '블로그' && <span>네이버{` `}</span>}
+          {platform === '블로그' && <span>네이버 {` `}</span>}
           <span>
             {platform} ∙ {type} / {categories[Number(category) - 1]}
           </span>
