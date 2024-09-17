@@ -4,10 +4,6 @@ import useCalendar from '@/hooks/useCalendar'
 import { transformApiData } from '@/utils/detailPageDays'
 
 const Calendar = ({ data }: any) => {
-  if (!data || !data.applicationStartDate || !data.applicationEndDate) {
-    return <div>데이터를 불러오는 중입니다...</div>
-  }
-
   const transformedData = transformApiData(data)
 
   const { weekCalendarList, currentDate, handlePrevMonth, handlenextMonth } =
