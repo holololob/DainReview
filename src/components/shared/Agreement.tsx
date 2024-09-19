@@ -128,8 +128,8 @@ function IconCheck({ checked }: { checked: boolean; withCircle?: boolean }) {
         />
         {checked === true ? (
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M14.7602 7.41532C15.0832 7.74309 15.0794 8.27072 14.7517 8.59381L9.67922 13.5938C9.36826 13.9003 8.87344 13.9148 8.54504 13.6271L5.28417 10.77C4.93801 10.4667 4.90327 9.94017 5.20657 9.59401C5.50987 9.24785 6.03636 9.2131 6.38252 9.51641L9.06083 11.8631L13.5817 7.40685C13.9094 7.08376 14.4371 7.08755 14.7602 7.41532Z"
             fill="white"
           />

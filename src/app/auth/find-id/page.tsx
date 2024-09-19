@@ -40,8 +40,8 @@ export default function findIdPage() {
   //   )
   // }
   return (
-    <div className="flex h-dvh w-full justify-center bg-background-gray">
-      <div className="mt-40 box-border w-[454px]">
+    <div className="flex h-[calc(100vh-10rem)] w-full justify-center bg-background-gray">
+      <div className="box-border w-[454px]">
         <div className="mx-auto mt-20 border-2 bg-white px-10 py-[60px]">
           <h3 className="mb-3 text-center text-[26px] font-bold leading-8">
             아이디 찾기
@@ -49,7 +49,7 @@ export default function findIdPage() {
           <Text
             color="gray60"
             weight={500}
-            className="text-center text-[16px]">
+            className="mb-10 text-center text-[16px]">
             가입 시 등록한 이름과 휴대전화번호를 입력해 주세요
           </Text>
           <FindIdForm />

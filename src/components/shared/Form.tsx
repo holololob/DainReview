@@ -1,19 +1,23 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
-import { useForm, FormProvider } from 'react-hook-form'
-import { ZodSchema } from 'zod'
+import { useForm, FormProvider, FieldValues } from 'react-hook-form'
+import { ZodSchema, z } from 'zod'
 
-interface FormProps {
+interface FormProps<T> {
   children: React.ReactNode
-  onSubmit: (data: any) => void
-  schema: ZodSchema<any>
+  onSubmit: (data: T) => void
+  schema: ZodSchema<T>
 }
 
-const Form: React.FC<FormProps> = ({ children, onSubmit, schema }) => {
-  const methods = useForm({
+const Form = <T extends FieldValues>({
+  children,
+  onSubmit,
+  schema
+}: FormProps<T>) => {
+  const methods = useForm<T>({
     resolver: zodResolver(schema)
   })
-  console.log('methods', methods)
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>

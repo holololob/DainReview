@@ -1,7 +1,7 @@
 // lib/api.ts
 export const fetchProductDetail = async (productId: string) => {
   const res = await fetch(
-    `http://ec2-54-206-111-187.ap-southeast-2.compute.amazonaws.com:8080/api/campaign/${productId}`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/campaign/${productId}`
   )
 
   if (!res.ok) {
@@ -12,12 +12,9 @@ export const fetchProductDetail = async (productId: string) => {
 }
 
 export const fetchCampaignList = async () => {
-  const res = await fetch(
-    'http://ec2-54-206-111-187.ap-southeast-2.compute.amazonaws.com:8080/api/campaign?category=%EB%A7%9B%EC%A7%91',
-    {
-      cache: 'no-store'
-    }
-  )
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/campaign?`, {
+    cache: 'no-store'
+  })
 
   if (!res.ok) {
     throw new Error('Failed to fetch product list')

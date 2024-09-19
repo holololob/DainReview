@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import Input from '../shared/Input'
 import Button from '../shared/Button'
 import { Label } from '../shared/Label'
-// import { CheckCircleIcon } from '@heroicons/react/solid' // 아이콘을 사용하기 위해 heroicons 패키지를 추가합니다.
-import InputCheckedIcon from '@/assets/icons/auth/InputCheckedIcon.svg'
+import VerificationIcon from './VerificationIcon'
+import classNames from 'classnames'
 
 interface CertifyFieldProps {
   id: string
@@ -13,6 +12,10 @@ interface CertifyFieldProps {
   require: boolean
   description?: string
   children: string
+  showIcon?: boolean
+  validationFunction?: (
+    value: string
+  ) => Promise<{ isValid: boolean | null; message: string }>
 }
 
 const CertifyField: React.FC<CertifyFieldProps> = ({
@@ -21,46 +24,36 @@ const CertifyField: React.FC<CertifyFieldProps> = ({
   placeholder,
   require,
   description,
-  children
+  children,
+  showIcon,
+  validationFunction
 }) => {
   const {
     register,
     formState: { errors },
-    setValue
+    setValue,
+    watch
   } = useFormContext()
-  const [isVerified, setIsVerified] = useState(false)
-  const [verificationMessage, setVerificationMessage] = useState<string | null>(
-    null
-  )
+  const [isVerifiedMessage, setisVerifiedMessage] = useState('')
+  const [isVerified, setIsVerified] = useState<boolean | null>(null)
+  const inputValue = watch(id) // 현재 입력된 값을 동기화
 
-  const checkEmailDuplication = async () => {
-    const emailValue = (document.getElementById(id) as HTMLInputElement).value
+  const handleValidation = useCallback(async () => {
+    if (!inputValue) return '값을 입력해주세요.'
 
-    // 이메일 중복 체크 로직 (예: API 호출)
-    try {
-      const response = await fetch('/api/check-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email: emailValue })
-      })
-      const result = await response.json()
-
-      if (result.isDuplicate) {
-        setVerificationMessage('이미 사용 중인 이메일입니다.')
-        setIsVerified(false)
-      } else {
-        setVerificationMessage('사용 가능한 이메일입니다.')
-        setIsVerified(true)
-        setValue(id, emailValue) // 인증된 이메일을 폼에 설정
+    if (validationFunction) {
+      const result = await validationFunction(inputValue)
+      setIsVerified(result.isValid)
+      if (result.isValid === true) {
+        setValue(id, inputValue, { shouldValidate: true })
+        setisVerifiedMessage(result.message)
+        return true // 유효한 경우 true 반환
+      } else if (result.isValid === false) {
+        setisVerifiedMessage(result.message)
+        return result.message || '유효성 검사에 실패했습니다.' // 유효하지 않은 경우 오류 메시지 반환
       }
-    } catch (error) {
-      console.error('이메일 중복 확인 중 오류 발생:', error)
-      setVerificationMessage('이메일 확인 중 오류가 발생했습니다.')
-      setIsVerified(false)
     }
-  }
+  }, [inputValue, validationFunction, setValue])
 
   return (
     <div className="flex w-full flex-col">
@@ -71,28 +64,42 @@ const CertifyField: React.FC<CertifyFieldProps> = ({
         description={description}
       />
       <div className="flex place-items-start gap-2">
-        <Input
-          id={id}
-          type="text"
-          placeholder={placeholder}
-          // register={register}
-          // errors={errors}
-        />
+        <div className="relative w-full">
+          <input
+            className={classNames(
+              `box-border w-full rounded-[4px] border p-2 shadow-sm transition focus:border-black focus:outline-none focus:ring-1 focus:ring-black disabled:cursor-not-allowed disabled:opacity-70 ${isVerified === false ? 'border-red-500 ring-red-500' : ''}`
+            )}
+            id={id}
+            type="text"
+            {...register(id, {
+              validate: handleValidation
+            })}
+            placeholder={placeholder}
+          />
+          {showIcon && <VerificationIcon isVerified={isVerified} />}
+        </div>
         <Button
           type="button"
-          className="h-[42px] min-w-[74px]"
+          className="h-[42px] min-w-[74px] rounded-md"
           variant="solid_primary"
-          onClick={checkEmailDuplication}>
+          onClick={handleValidation}>
           {children}
         </Button>
-        {isVerified && <InputCheckedIcon />}
       </div>
-      {verificationMessage && (
-        <p
-          className={`mt-2 text-sm ${isVerified ? 'text-green-500' : 'text-red-500'}`}>
-          {verificationMessage}
-        </p>
-      )}
+      <div>
+        {errors[id] ? (
+          <p className="mt-2 text-sm text-red-500">
+            {errors[id]?.message?.toString()}
+          </p>
+        ) : (
+          isVerifiedMessage && (
+            <p
+              className={`mt-2 text-sm ${isVerified === true ? 'text-green-500' : 'text-red-500'}`}>
+              {isVerifiedMessage}
+            </p>
+          )
+        )}
+      </div>
     </div>
   )
 }
