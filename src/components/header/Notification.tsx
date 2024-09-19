@@ -1,6 +1,6 @@
 import NotificationIcon from '@/assets/icons/home/notification.svg'
 
-const Notification = ({ noti }: { noti: number | null }) => {
+const Notification = ({ noti }: { noti: number }) => {
   return (
     <div className="relative">
       {noti !== 0 && noti && (

@@ -4,7 +4,7 @@ import { SocialLinkGroups } from '@/components/auth/SocialLinkGroups'
 import { SocialLinkMobileGroups } from '@/components/auth/SocialLinkMobileGroups'
 
 import Text from '@/components/shared/Text'
-import { SignupForm } from '@/components/auth/SignupForm'
+import { SignupForm } from '@/components/auth/form/SignupForm'
 
 export default function SignUpPage() {
   return (

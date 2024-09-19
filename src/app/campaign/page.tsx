@@ -1,9 +1,13 @@
 import SearchClient from '@/components/client-page/SearchClient'
 import Footer from '@/components/shared/Footer'
 import Header from '@/components/shared/Header'
+import { fetchCampaignList } from '@/lib/api'
 
-const page = ({ searchParams }: any) => {
+const page = async ({ searchParams }: any) => {
   const { searchWord, platform, type, category } = searchParams
+
+  const data = await fetchCampaignList()
+  const displayData = data.list.slice(0, 20)
 
   return (
     <div>
@@ -23,6 +27,7 @@ const page = ({ searchParams }: any) => {
         platform={platform}
         type={type}
         category={category}
+        data={displayData}
       />
       <Footer />
     </div>

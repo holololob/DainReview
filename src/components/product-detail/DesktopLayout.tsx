@@ -2,8 +2,6 @@
 import {
   experienceMessage,
   missionList,
-  staticData,
-  요청사항,
   필수체크사항
 } from '@/data/DetailPageMockData'
 import CheckInfoList from './elements/CheckInfoList'
@@ -11,7 +9,6 @@ import LikeButton from './elements/LikeButton'
 import ButtonAndInfo from './elements/ButtonAndInfo'
 import { TagKeyword, TagKeywordContainer } from './elements/TagKeyword'
 import DotIcon from '@/assets/icons/product-detail/dot.svg'
-import ReviewType from '../home/product/ReviewType'
 import DesttopShare from '@/assets/icons/product-detail/desktop-share.svg'
 import { ProductDetailProps } from '@/models/detailPage'
 import Schedule from './elements/Schedule'
@@ -43,8 +40,6 @@ const DesktopLayout = ({ data }: Props) => {
       value: unavailableDays
     }
   ]
-
-  const initialApplicationStartDate = '2024-08-05T00:00:00Z'
 
   const handleClick = () => {
     notify('복사 되었습니다')

@@ -1,4 +1,4 @@
-import { LoginForm } from '@/components/auth/LoginForm'
+import { LoginForm } from '@/components/auth/form/LoginForm'
 import { SocialLinkGroups } from '@/components/auth/SocialLinkGroups'
 import { SocialLinkMobileGroups } from '@/components/auth/SocialLinkMobileGroups'
 import Image from 'next/image'
@@ -25,7 +25,7 @@ export default function LoginPage() {
             </div>
             <div className="text-center">
               <a
-                href=""
+                href="/auth/sign-up"
                 className="font-bold leading-4">
                 회원가입
               </a>
@@ -37,7 +37,6 @@ export default function LoginPage() {
               alt="로그인 이미지"
               width={454}
               height={605}
-              priority={false}
             />
           </div>
         </div>

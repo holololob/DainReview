@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
 import { Label } from '../shared/Label'
 import Button from '../shared/Button'
+import { useFormContext } from 'react-hook-form'
 
 const GenderSelect = ({ id }: { id: string }) => {
+  const {
+    setValue,
+    formState: { errors }
+  } = useFormContext()
   const [selectedGender, setSelectedGender] = useState(null)
 
   const handleGenderSelect = (gender: any) => {
     setSelectedGender(gender)
+    setValue(id, gender)
   }
 
   return (
@@ -16,28 +22,28 @@ const GenderSelect = ({ id }: { id: string }) => {
         name="성별"
         require={true}
       />
-
+      {errors && (
+        <p className="mt-2 text-sm text-red-500">
+          {errors[id]?.message?.toString()}
+        </p>
+      )}
       <div className="flex w-full gap-2">
         <Button
           type="button"
           variant={
-            selectedGender === '남성'
-              ? 'outline_secondary_red'
-              : 'outline_disable'
+            selectedGender === 1 ? 'outline_secondary_red' : 'outline_disable'
           }
           className="flex-1"
-          onClick={() => handleGenderSelect('남성')}>
+          onClick={() => handleGenderSelect(1)}>
           남성
         </Button>
         <Button
           type="button"
           variant={
-            selectedGender === '여성'
-              ? 'outline_secondary_red'
-              : 'outline_disable'
+            selectedGender === 2 ? 'outline_secondary_red' : 'outline_disable'
           }
           className="flex-1"
-          onClick={() => handleGenderSelect('여성')}>
+          onClick={() => handleGenderSelect(2)}>
           여성
         </Button>
       </div>

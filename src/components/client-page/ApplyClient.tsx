@@ -3,11 +3,13 @@ import ReviewType from '../home/product/ReviewType'
 import ButtonAndInfo from '../product-detail/elements/ButtonAndInfo'
 import CoinIcon from '@/assets/icons/product-detail/coin.svg'
 import Schedule from '../product-detail/elements/Schedule'
+import { ProductDetailProps } from '@/models/detailPage'
+import PlatformType from '../home/product/PlatformType'
 
 interface Props {
-  id: string
+  data: ProductDetailProps
 }
-const ApplyClient = ({ id }: Props) => {
+const ApplyClient = ({ data }: Props) => {
   return (
     <div className="max-[1400px] mx-auto flex h-full flex-col px-4 py-5 desktop:min-h-max desktop:flex-row desktop:justify-center desktop:gap-10">
       <div className="flex-1 desktop:flex-none">
@@ -24,27 +26,38 @@ const ApplyClient = ({ id }: Props) => {
             음료 메뉴 2잔 + 디저트 메뉴 1종 (선택 가능) + 애견 동반 입장료
             무료(매너벨트 1개 포함)
           </p>
-          <div className="flex h-[58px] gap-4 border-b border-t py-4">
+          <div className="flex h-[58px] items-center gap-4 border-b border-t py-4">
             <div className="flex gap-[2px]">
               <CoinIcon />
               <span className="text-body-2 font-bold text-gray-70">
                 100,000P
+                {/* {data.point} */}
               </span>
             </div>
-            <ReviewType
-              snsType="naver"
+            <PlatformType
+              type={data.type}
+              category={data.category}
               detailPage
+              platform={
+                data.platform as '블로그' | '유튜브' | '인스타그램' | '틱톡'
+              }
             />
           </div>
-          <Schedule />
+          <Schedule data={data} />
         </div>
         <div className="mt-[66px]">
-          <ButtonAndInfo productId={id} />
+          <ButtonAndInfo
+            recruiter={data.recruiter}
+            productId={data.seq}
+          />
         </div>
       </div>
       {/* 모바일 반응형 노출 버튼 */}
       <div className="mx-auto flex min-w-[328px] max-w-[328px] desktop:hidden">
-        <ButtonAndInfo productId={id} />
+        <ButtonAndInfo
+          recruiter={data.recruiter}
+          productId={data.seq}
+        />
       </div>
     </div>
   )

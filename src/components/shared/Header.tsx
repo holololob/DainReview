@@ -9,13 +9,21 @@ import SearchButton from '../header/SearchButton'
 import BackButton from '../header/BackButton'
 import LogoIconBlack from '@/assets/icons/home/logo-icon-black.svg'
 import Link from 'next/link'
+import { useUserStore } from '@/store'
+import useUserInfo from '@/hooks/useUserInfo'
 interface Props {
-  isLogin: boolean
+  isLogin?: boolean
   subtitle?: string
   isOnlyBackButton?: boolean
 }
 
-const Header = ({ isLogin, subtitle, isOnlyBackButton = false }: Props) => {
+const Header = ({ subtitle, isOnlyBackButton = false }: Props) => {
+  useUserInfo()
+
+  const { name, profileUrl, alarmCounts } = useUserStore()
+
+  const isUserLoggedIn = !!name
+
   return (
     <header className="mx-auto h-[56px] max-w-[1400px] bg-white px-4 md:bg-inherit lg:h-[160px] desktop:p-0">
       {/* 모바일 반응형 헤더 - 비로그인 시 UI & 다른 페이지랑 아이콘 위치가 달라서 디자인 팀 확인 필요*/}
@@ -28,7 +36,7 @@ const Header = ({ isLogin, subtitle, isOnlyBackButton = false }: Props) => {
           {!isOnlyBackButton && (
             <div className="flex items-center gap-4">
               <SearchButton />
-              <Notification noti={3} />
+              <Notification noti={alarmCounts} />
             </div>
           )}
         </div>
@@ -40,8 +48,15 @@ const Header = ({ isLogin, subtitle, isOnlyBackButton = false }: Props) => {
           <LogoIconBlack />
         </Link>
         <div className="flex items-center gap-[18px]">
-          <UserMenu noti={3} />
-          {isLogin ? <UserMenu noti={3} /> : <GuestMenu />}
+          {isUserLoggedIn ? (
+            <UserMenu
+              profileUrl={profileUrl}
+              name={name}
+              noti={alarmCounts}
+            />
+          ) : (
+            <GuestMenu />
+          )}
         </div>
       </section>
       <section>

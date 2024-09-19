@@ -4,3 +4,4 @@
 export { useSearchModalStore } from './useSearchModal'
 export { useSearchFilterBoxStore } from './useSearchFilterBox'
 export { useHamburgerModalStore } from './useHamburgerModal'
+export { useUserStore } from './useUserStore'
